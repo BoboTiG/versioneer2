@@ -416,11 +416,11 @@ def git_get_keywords(versionfile_abs):
         f = io.open(versionfile_abs, "r", encoding='utf-8')
         for line in f.readlines():
             if line.strip().startswith("git_refnames ="):
-                mo = re.search(r'=\s*"(.*)"', line)
+                mo = re.search(r'=\\s*"(.*)"', line)
                 if mo:
                     keywords["refnames"] = mo.group(1)
             if line.strip().startswith("git_full ="):
-                mo = re.search(r'=\s*"(.*)"', line)
+                mo = re.search(r'=\\s*"(.*)"', line)
                 if mo:
                     keywords["full"] = mo.group(1)
         f.close()
@@ -449,7 +449,7 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose=False):
         # between branches and tags. By ignoring refnames without digits, we
         # filter out many common branch names like "release" and
         # "stabilization", as well as "HEAD" and "master".
-        tags = set([r for r in refs if re.search(r'\d', r)])
+        tags = set([r for r in refs if re.search(r'\\d', r)])
         if verbose:
             print("discarding '%%s', no digits" %% ",".join(refs-tags))
     if verbose:
